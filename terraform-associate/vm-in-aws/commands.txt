@@ -1,0 +1,30 @@
+# Initialize Terraform working directory
+# - Backend Initialization
+# - Child Module Installation
+# - Plugin/Providers Installation
+terraform init
+
+# Substitute DUMMY_* placeholders with actual values
+N/A
+
+# Creates an execution plan for preview
+# - Reads the current state of any already-existing remote objects to make sure that the Terraform state is up-to-date
+# - Compares the current configuration to the prior state and noting any differences.
+# - Proposes a set of change actions that should, if applied, make the remote objects match the configuration.
+terraform plan
+
+# Executes the actions proposed in a Terraform plan
+# When ran without passing a saved plan file,
+# Terraform automatically creates a new execution plan
+# as if you had run terraform plan,
+# prompts you to approve that plan,
+# and takes the indicated actions. 
+terraform apply
+
+# Create a speculative destroy plan
+terraform plan -destroy
+
+# Destroys all remote objects managed by a particular Terraform configuration
+# "destroy" command is a syntactic sugar for "apply -destroy"
+terraform destroy
+terraform apply -destroy
