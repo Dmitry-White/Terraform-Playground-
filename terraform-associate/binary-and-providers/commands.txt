@@ -9,3 +9,20 @@ sudo mv terraform /usr/sbin
 
 # Check if the binary is installed
 terraform version
+
+# Optionally, enable verbose logging
+export TF_LOG=TRACE
+
+# Format your code according to TF defaults
+terraform fmt
+
+# Initialize Terraform for the current directory
+terraform init
+
+# Exercise Terraform Workflow
+terraform plan
+terraform apply --auto-approve
+terraform destroy --auto-approve
+
+# Optionally, disable verbose logging
+export TF_LOG=
