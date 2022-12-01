@@ -1,0 +1,11 @@
+# Download archived binary
+wget -c https://releases.hashicorp.com/terraform/1.3.6/terraform_1.3.6_linux_amd64.zip
+
+# Unpack the archived binary
+unzip terraform_1.3.6_linux_amd64.zip
+
+# Move the binary to the directory available for all users
+sudo mv terraform /usr/sbin
+
+# Check if the binary is installed
+terraform version
