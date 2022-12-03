@@ -2,11 +2,20 @@
 # SaaS providers, and other APIs.
 # Each provider adds a set of resource types and/or data sources that Terraform can manage.
 
+terraform {
+  required_providers {
+    # No version mentioned for a particular provider - downloads the latest one
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
 # Resources that don't set the provider meta-argument
 # will use the default provider configuration
 # that matches the first word of the resource type name.
 provider "aws" {
-  # No version mentioned - downloads the latest one
   region = "us-east-1"
 }
 
@@ -17,6 +26,11 @@ provider "aws" {
 provider "aws" {
   alias  = "us-west-2"
   region = "us-west-2"
+  
+  # The version meta-argument in provider configurations is deprecated.
+  # In Terraform > 0.13, always declare provider version constraints
+  # in the terraform.required_providers block.
+  # version = "value"
 }
 
 

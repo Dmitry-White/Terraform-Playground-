@@ -19,6 +19,9 @@ terraform fmt
 # Initialize Terraform for the current directory
 terraform init
 
+# Add AWS credentials reference
+export AWS_PROFILE=<YOUR_PROFILE_NAME>
+
 # Exercise Terraform Workflow
 terraform plan
 terraform apply --auto-approve
