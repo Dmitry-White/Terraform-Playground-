@@ -9,11 +9,11 @@ ssh-keygen -f ~/.ssh/id_rsa -t rsa
 ls ~/.ssh
 cat variables.tf
 
-# Validation your TF syntax
-terraform validate
-
 # Initialize Terraform for the current directory
 terraform init
+
+# Validation your TF syntax
+terraform validate
 
 # Add AWS credentials reference
 export AWS_PROFILE=<YOUR_PROFILE_NAME>
