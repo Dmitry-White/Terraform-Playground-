@@ -1,3 +1,24 @@
 # The main.tf file contains the resource for creating EC2 instance using a Provisioner.
-# The setup.tf file sets up all the ancillary resources needed
+# The network.tf file sets up all the ancillary network resources needed
 # by the EC2 instance before it can be spun up.
+
+# Generate SSH key pair
+ssh-keygen -f ~/.ssh/id_rsa -t rsa
+
+# Make sure that the path to SSH key pair is the same as the TF input variable
+ls ~/.ssh
+cat variables.tf
+
+# Validation your TF syntax
+terraform validate
+
+# Initialize Terraform for the current directory
+terraform init
+
+# Add AWS credentials reference
+export AWS_PROFILE=<YOUR_PROFILE_NAME>
+
+# Exercise Terraform Workflow
+terraform plan
+terraform apply --auto-approve
+terraform destroy --auto-approve
