@@ -1,4 +1,10 @@
-#Create and bootstrap webserver
+# Create key-pair for logging into EC2
+resource "aws_key_pair" "webserver-key" {
+  key_name   = "webserver-key"
+  public_key = file(var.ssh_key_path)
+}
+
+# Create and bootstrap webserver
 resource "aws_instance" "webserver" {
   ami                         = data.aws_ssm_parameter.webserver-ami.value
   instance_type               = "t3.micro"
@@ -20,6 +26,6 @@ resource "aws_instance" "webserver" {
     }
   }
   tags = {
-    Name = "webserver"
+    Name = "Terraform-WebServer"
   }
 }
