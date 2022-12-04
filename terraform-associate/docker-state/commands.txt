@@ -1,0 +1,23 @@
+
+# Initialize Terraform for the current directory
+terraform init
+
+# Validation your TF syntax
+terraform validate
+
+# Exercise Terraform Workflow
+terraform plan
+terraform apply --auto-approve
+
+# Make sure your Docker Resources are now present locally
+docker image ls -a
+docker container ls -a
+
+# Modify TF State file
+terraform state rm <DOCKER_RESOURCE_NAME>
+
+# Destroy all TF resources
+terraform destroy --auto-approve
+
+# Check if your Docker Resource is still runnning
+docker container ls
