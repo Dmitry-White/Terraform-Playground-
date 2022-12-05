@@ -1,0 +1,32 @@
+# Create an AWS S3 bucket to hold TF state
+aws s3api create-bucket \
+    --profile <AWS_PROFILE> \
+    --bucket <BUCKET_NAME> \
+    --create-bucket-configuration LocationConstraint=<AWS_REGION>
+
+
+# Check that Terraform is installed and functioning properly
+terraform version
+
+# Initialize the working directory and download the required providers
+terraform init
+
+# Validation your TF syntax
+terraform validate
+
+# Exercise Terraform Workflow with ENV var
+TF_VAR_docker_image_name="nginx" terraform plan
+TF_VAR_docker_image_name="nginx" terraform apply --auto-approve
+
+# Explicitly pass an invalid Port variable value
+TF_VAR_docker_image_name="nginx" terraform apply -var docker_external_port=8181
+
+# Destroy all TF resources
+terraform destroy --auto-approve
+
+# Make sure TF state file is empty in S3
+aws s3api get-object \
+    --profile <AWS_PROFILE> \
+    --bucket <BUCKET_NAME> \
+    --key terraform.tfstate \
+    terraform.tfstate
