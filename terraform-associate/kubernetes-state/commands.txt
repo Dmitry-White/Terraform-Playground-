@@ -1,0 +1,38 @@
+# Check that the Kubernetes backedn process minikube is running properly
+minikube status
+
+# Check that Terraform is installed and functioning properly
+terraform version
+
+# Initialize the working directory and download the required providers
+terraform init
+
+# Exercise Terraform Workflow
+terraform plan
+terraform apply --auto-approve
+
+# Explore TF state
+terraform state list
+
+# Make sure corresponding Kubernetes resources are running
+kubectl get deployments
+kubectl get services
+kubectl get pods
+
+# Modify number of pods and rerun Terraform Workflow
+terraform plan
+terraform apply --auto-approve
+
+# Notice number of TF state objects is unchanged
+terraform state list
+
+# Notice the changes to Kubernetes resources
+kubectl get deployments
+kubectl get pods
+
+# Destroy all TF resources
+terraform destroy --auto-approve
+
+# Notice the TF state backup file present
+ls -al
+
