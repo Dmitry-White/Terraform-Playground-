@@ -14,5 +14,4 @@ variable "docker_command" {
   type        = list(string)
   description = "Docker Command to Run"
   default     = ["/bin/sleep", "500"]
-
 }
