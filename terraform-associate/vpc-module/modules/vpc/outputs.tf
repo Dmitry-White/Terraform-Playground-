@@ -1,7 +1,9 @@
 output "subnet_id" {
-  value = aws_subnet.this.id
+  description = "Subnet ID"
+  value       = aws_subnet.subnet.id
 }
 
 output "ami_id" {
-  value = data.aws_ssm_parameter.this.value
+  description = "Webserver Instance AMI"
+  value       = data.aws_ssm_parameter.webserver-ami.value
 }
