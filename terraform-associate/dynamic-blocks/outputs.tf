@@ -1,6 +1,6 @@
 output "Web-Server-URL" {
   description = "Web-Server-URL"
-  value       = join("", ["http://", aws_instance.my-instance.public_ip])
+  value       = join("", ["http://", aws_instance.webserver.public_ip])
 }
 
 output "Time-Date" {

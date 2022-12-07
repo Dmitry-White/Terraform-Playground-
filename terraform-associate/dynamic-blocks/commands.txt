@@ -1,0 +1,24 @@
+# Format your TF code
+terraform fmt
+
+# Initialize Terraform and all the Modules
+terraform init
+
+# Validation your TF syntax
+terraform validate
+
+# Explore evaluated variables
+terraform console
+
+# Add AWS credentials reference
+export AWS_PROFILE=<YOUR_PROFILE_NAME>
+
+# Exercise Terraform Workflow
+terraform plan
+terraform apply --auto-approve
+
+# Explore TF Outputs from the current TF state
+terraform output
+
+# Destroy all TF resources
+terraform destroy --auto-approve
