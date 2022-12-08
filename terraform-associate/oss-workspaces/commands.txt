@@ -1,0 +1,39 @@
+# The main.tf file contains provider and EC2 VM resources
+# and uses ${terraform.workspace} variable and logic to decide what 
+# region to deploy in
+
+# The network.tf file spins up the network resources required by
+# the EC2 VM and uses ${terraform.workspace} variable to set their Names/IDs.
+
+# Check that Terraform is installed and functioning properly
+terraform version
+
+# Check existing TF OSS workspaces
+terraform workspace list
+
+# Create a new TF OSS workspace (and automatically switch to it)
+terraform workspace new <WORKSPACE_NAME>
+
+# Initialize the working directory and download the required providers
+terraform init
+
+# Exercise Terraform Workflow
+terraform plan
+terraform apply --auto-approve
+
+# Confirm that resources are tracked by the current OSS workspace
+terraform state list
+
+# Switch to a default/new TF OSS workspace 
+terraform workspace select default/<WORKSPACE_NAME>
+
+# Confirm that resources are no longer tracked by the current OSS workspace
+terraform state list
+
+# Exercise Terraform Workflow again
+terraform plan
+terraform apply --auto-approve
+
+# Destroy all TF resources selecting appropriate TF OSS workspace
+terraform workspace select <WORKSPACE_NAME>
+terraform destroy --auto-approve
