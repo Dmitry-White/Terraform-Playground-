@@ -21,4 +21,18 @@ export AWS_PROFILE=<YOUR_PROFILE_NAME>
 # Exercise Terraform Workflow
 terraform plan
 terraform apply --auto-approve
+
+# Update the provisioner content and run the TF plan again
+# Note that no udpates are planned
+# as Terraform doesn't track changes in provisioner block
+terraform plan
+
+# Mark resource for deletion and recreation vi TF Taint
+terraform taint <RESOURCE_NAME>
+
+# Exercise Terraform Workflow again
+terraform plan
+terraform apply --auto-approve
+
+# Destroy all TF resources
 terraform destroy --auto-approve
