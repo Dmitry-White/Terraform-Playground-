@@ -18,7 +18,7 @@ resource "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_network_interface" "nic" {
-  count = var.instances
+  count = var.instance_count
 
   name                = "NIC-${count.index}"
   location            = azurerm_resource_group.rg.location
@@ -32,7 +32,7 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  count = var.instances
+  count = var.instance_count
 
   name = "instance-${count.index}"
   size = "Standard_DS1_v2"

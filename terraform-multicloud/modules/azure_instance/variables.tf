@@ -1,5 +1,5 @@
-variable "instances" {
-  type = list(string)
+variable "instance_count" {
+  type = number
 }
 
 variable "resource_group_name" {
