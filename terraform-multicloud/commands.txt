@@ -1,1 +1,15 @@
-TBD
+# Format recursively all your TF code
+terraform fmt -recursive
+
+# Initialize Terraform and all the Modules
+terraform init
+
+# Validation your TF syntax
+terraform validate
+
+# Authenticate to AWS and Azure CLIs
+
+# Exercise Terraform Workflow
+terraform plan
+terraform apply --auto-approve
+terraform destroy --auto-approve
