@@ -7,6 +7,9 @@ terraform init
 # Validation your TF syntax
 terraform validate
 
+# Create an SSH key pair for your VMs
+ssh-keygen -t rsa -b 4096
+
 # Authenticate to AWS and Azure CLIs
 
 # Exercise Terraform Workflow
