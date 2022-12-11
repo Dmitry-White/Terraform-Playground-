@@ -11,6 +11,8 @@ terraform validate
 ssh-keygen -t rsa -b 4096
 
 # Authenticate to AWS and Azure CLIs
+aws configure
+az login -u <AZURE_USER> -p <AZURE_PASSWORD>
 
 # Exercise Terraform Workflow
 terraform plan
