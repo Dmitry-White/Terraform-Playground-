@@ -4,7 +4,7 @@ module "aws_server" {
   count = var.enable_aws ? 1 : 0
 
   instance_count = var.instance_count
-  subnet    = var.aws_subnet
+  instance_type  = var.aws_instance_type
 }
 
 module "azure_server" {
@@ -12,7 +12,6 @@ module "azure_server" {
 
   count = var.enable_azure ? 1 : 0
 
-  instance_count               = var.instance_count
-  resource_group_name     = var.resource_group_name
-  resource_group_location = var.resource_group_location
+  instance_count = var.instance_count
+  instance_type  = var.azure_instance_type
 }

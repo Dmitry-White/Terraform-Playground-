@@ -1,35 +1,32 @@
 variable "enable_aws" {
-  description = "Enable/Disable AWS Deployment"
   type        = bool
+  description = "Enable/Disable AWS Deployment"
   default     = true
 }
 
 variable "enable_azure" {
-  description = "Enable/Disable Azure Deployment"
   type        = bool
+  description = "Enable/Disable Azure Deployment"
   default     = true
 }
 
 variable "instance_count" {
-  description = "Number of Instances"
   type        = number
+  description = "Number of Instances"
   default     = 2
 }
 
-variable "aws_subnet" {
-  description = "AWS Subnet"
+
+variable "aws_instance_type" {
   type        = string
-  default     = "<AWS_SUBNET>"
+  description = "AWS Instance Type"
+  default     = "t3.micro"
 }
 
-variable "resource_group_name" {
-  description = "Resource Group Name"
-  type        = string
-  default     = "<AZURE_RG>"
-}
 
-variable "resource_group_location" {
-  description = "Resource Group Location"
+
+variable "azure_instance_type" {
   type        = string
-  default     = "centralus"
+  description = "Azure Instance Type"
+  default     = "Standard_DS1_v2"
 }

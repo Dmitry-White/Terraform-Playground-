@@ -1,11 +1,38 @@
 variable "instance_count" {
-  type = number
+  type        = number
+  description = "Number of VM instances to start"
+  default     = 1
 }
 
-variable "resource_group_name" {
-  type = string
+variable "instance_type" {
+  type        = string
+  description = "VM Instance size"
+  default     = "Standard_DS1_v2"
 }
 
-variable "resource_group_location" {
-  type = string
+locals {
+  network = {
+    full_cidr   = "10.0.0.0/16"
+    subnet_cidr = "10.0.1.0/24"
+  }
+
+  image = {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
+    version   = "latest"
+  }
+  creds = {
+    username     = "<VM_USER>"
+    password     = "<VM_PASSWORD>"
+    ssh_key_path = "~/.ssh/id_rsa.pub"
+  }
+  storage = {
+    caching      = "ReadWrite"
+    account_type = "Standard_LRS"
+  }
+  resources = {
+    name     = "Terraform-SG"
+    location = "centralus"
+  }
 }

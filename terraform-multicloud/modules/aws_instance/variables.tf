@@ -1,17 +1,24 @@
 variable "instance_count" {
-  type = number
-}
-
-variable "ami_id" {
-  type    = string
-  default = "ami-0729e439b6769d6ab"
+  type        = number
+  description = "Number of EC2 instances to start"
+  default     = 1
 }
 
 variable "instance_type" {
-  type    = string
-  default = "t3.micro"
+  type        = string
+  description = "EC2 Instance size"
+  default     = "t3.micro"
 }
 
-variable "subnet" {
-  type = string
+locals {
+  network = {
+    full_cidr   = "10.0.0.0/16"
+    subnet_cidr = "10.0.1.0/24"
+  }
+  image = {
+    ami_id = "ami-076309742d466ad69"
+  }
+  creds = {
+    ssh_key_path = "~/.ssh/id_rsa.pub"
+  }
 }
