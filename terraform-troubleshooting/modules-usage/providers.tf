@@ -1,5 +1,4 @@
 terraform {
-
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -13,8 +12,4 @@ terraform {
 provider "aws" {
   profile = "default"
   region  = "us-east-1"
-}
-
-module "ec2-module" {
-  source = "./modules/ec2"
 }

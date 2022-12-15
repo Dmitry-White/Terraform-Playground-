@@ -16,14 +16,11 @@ variable "instance_count" {
   default     = 2
 }
 
-
 variable "aws_instance_type" {
   type        = string
   description = "AWS Instance Type"
   default     = "t3.micro"
 }
-
-
 
 variable "azure_instance_type" {
   type        = string

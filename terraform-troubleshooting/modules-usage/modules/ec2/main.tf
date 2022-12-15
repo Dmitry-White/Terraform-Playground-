@@ -1,8 +1,10 @@
 resource "aws_instance" "app_server" {
-  ami           = "DUMMY_VALUE_AMI"
   instance_type = "t3.micro"
-  subnet_id     = "<DUMMY_VALUE_SUBNET_ID>"
+
+  ami       = local.image.ami_id
+  subnet_id = var.subnet_id
+
   tags = {
-    Name = "WayneCorp"
+    Name = "${var.instance_name}-Server"
   }
 }
