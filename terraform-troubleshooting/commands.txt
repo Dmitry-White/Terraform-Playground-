@@ -1,0 +1,9 @@
+# To enable verbose logging for
+# TRACE, DEBUG, INFO, WARN, ERROR levels
+export TF_LOG=TRACE
+
+# To divert logs to a specific path
+export TF_LOG_PATH=<LOGS_PATH>
+
+# To see last N lines of logs
+tail -N <LOGS_PATH>
