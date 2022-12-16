@@ -1,0 +1,19 @@
+# Create a symbolic link (symlink)
+
+## For Linux
+ln -s <target> <link>
+
+## For Windows
+mklink <link> <target>
+
+## Examples
+ln -s ./shared/variables.tf ./variables.tf
+mklink .\variables.tf .\shared\variables.tf
+
+## Switch to CMD from Git Bash and back in the current directory:
+cmd /c
+exit
+
+## Reference
+https://en.wikipedia.org/wiki/Ln_(Unix)
+https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/mklink
