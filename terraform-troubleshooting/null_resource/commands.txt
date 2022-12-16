@@ -1,0 +1,21 @@
+# Format recursively all your TF code
+terraform fmt -recursive
+
+# Initialize Terraform and all the Modules
+terraform init
+
+# Validation your TF syntax
+terraform validate
+
+# Add AWS credentials reference
+export AWS_PROFILE=<YOUR_PROFILE_NAME>
+
+# Exercise Terraform Workflow
+terraform plan
+terraform apply --auto-approve
+
+# Query AWS EC2 and compare with Null Resource script output
+aws ec2 describe-instances --profile=<AWS_PROFILE>
+
+# Destroy all TF resources
+terraform destroy --auto-approve

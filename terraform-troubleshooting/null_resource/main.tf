@@ -24,3 +24,9 @@ resource "aws_instance" "app_server" {
     Name = var.instance_name
   }
 }
+
+resource "null_resource" "ec2_status" {
+  provisioner "local-exec" {
+    command = "./scripts/health.sh"
+  }
+}
