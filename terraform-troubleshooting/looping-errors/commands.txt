@@ -22,7 +22,7 @@ locals {
     }
 }
 for_each = local.security_groups
-vpc_security_group_ids = [each.values]
+vpc_security_group_ids = [each.value]
 Name = "${var.name}-justice-${each.key}"
 
 # Exercise Terraform Workflow
