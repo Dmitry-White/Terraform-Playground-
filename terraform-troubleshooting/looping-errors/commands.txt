@@ -1,0 +1,31 @@
+# Initialize Terraform and all the Modules
+terraform init
+
+# Format your TF code
+# Formatting is able to find style and simple syntax errors
+# Just like Prettier for JS
+terraform fmt
+
+# Validate your TF code
+# Validation is able to find logical errors
+# Just like ESLint for JS
+terraform validate
+
+# Since resources that use the "for_each" argument
+# will appear in expressions as a map of objects,
+# you can't use splat expressions with those resources.
+# Fix the looping error with the following code:
+locals {
+    security_groups = {
+        sg_ping = aws_security_group.sg_ping.id,
+        sg_8080 = aws_security_group.sg_8080.id,
+    }
+}
+for_each = local.security_groups
+vpc_security_group_ids = [each.values]
+Name = "${var.name}-justice-${each.key}"
+
+# Exercise Terraform Workflow
+terraform plan
+terraform apply --auto-approve
+terraform destroy --auto-approve
