@@ -37,15 +37,10 @@ resource "aws_security_group_rule" "allow_8080" {
 
 # Since the TF code creates severla instances
 # outputs should loop through each instance to get each of the IDs
-# Fix eahc of the output errors with the similar code:
+# Fix each of the output errors with the similar code:
 value = [for instance in aws_instance.web_app: instance.id]
 
 # Exercise Terraform Workflow
 terraform plan
 terraform apply --auto-approve
 terraform destroy --auto-approve
-
-vpc: vpc-0dc67197427cefadf
-ami: ami-0fe472d8a85bc7b0e
-subnet_id: subnet-0eae4c86b7453be7e
-
