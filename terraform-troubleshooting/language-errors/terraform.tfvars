@@ -1,2 +1,2 @@
-name = "hall-of"
+name   = "hall-of"
 region = "us-east-1"
