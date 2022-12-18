@@ -1,0 +1,13 @@
+# Initialize Terraform and all the Modules
+terraform init
+
+# Format and validate your TF code
+terraform fmt
+terraform validate
+
+# Fix all the found errors
+
+# Exercise Terraform Workflow
+terraform plan
+terraform apply --auto-approve
+terraform destroy --auto-approve
