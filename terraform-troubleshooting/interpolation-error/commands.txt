@@ -1,11 +1,39 @@
 # Initialize Terraform and all the Modules
 terraform init
 
-# Format and validate your TF code
+# Format your TF code
+# Formatting is able to find style and simple syntax errors
+# Just like Prettier for JS
 terraform fmt
+
+# Fix the name tag with the following code
+Name = "{var.name}-justice-{each.key}"
+
+# Validate your TF code
+# Validation is able to find logical errors
+# Just like ESLint for JS
 terraform validate
 
-# Fix all the found errors
+# Since cycle error is caused by cross-reference in the rules of both SGs
+# Move each of the rules to a separate resource block.
+# Fix the cycle error with the following code:
+resource "aws_security_group_rule" "allow_ping" {
+    type = "ingress"
+    from_port = -1
+    to_port = -1
+    protocol = "icmp"
+    security_group_id = aws_security_group.sg_ping.id
+    source_security_group_id = aws_security_group.sg_8080.id
+}
+
+resource "aws_security_group_rule" "allow_8080" {
+    type = "ingress"
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    security_group_id = aws_security_group.sg_8080.id
+    source_security_group_id = aws_security_group.sg_ping.id
+}
 
 # Exercise Terraform Workflow
 terraform plan
