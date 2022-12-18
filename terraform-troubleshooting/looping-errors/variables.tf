@@ -9,10 +9,14 @@ variable "name" {
 
 locals {
   network = {
-    full_cidr   = "10.0.0.0/16"
-    subnet_cidr = "10.0.1.0/24"
+    vpc_id   = "<VPC_ID>"
+    subnet_id = "<SUBNET_ID>"
   }
+  security_groups = {
+        sg_ping = aws_security_group.sg_ping.id,
+        sg_8080 = aws_security_group.sg_8080.id,
+    }
   image = {
-    ami_id = "ami-076309742d466ad69"
+    ami_id = "<DUMMY_AMI>"
   }
 }

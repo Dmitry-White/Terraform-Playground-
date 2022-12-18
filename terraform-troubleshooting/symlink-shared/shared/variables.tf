@@ -12,6 +12,6 @@ variable "subnet_id" {
 
 locals {
   image = {
-    ami_id = "<DUMMY_AMIs>"
+    ami_id = "<DUMMY_AMI>"
   }
 }

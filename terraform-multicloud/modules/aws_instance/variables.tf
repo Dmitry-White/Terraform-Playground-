@@ -16,7 +16,7 @@ locals {
     subnet_cidr = "10.0.1.0/24"
   }
   image = {
-    ami_id = "ami-076309742d466ad69"
+    ami_id = "<DUMMY_AMI>"
   }
   creds = {
     ssh_key_path = "~/.ssh/id_rsa.pub"
