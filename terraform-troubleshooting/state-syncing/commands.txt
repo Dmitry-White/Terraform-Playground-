@@ -1,0 +1,4 @@
+# Update the deployment region to anything non-defaut
+# by uncommenting "region" input variable in "terraform.tfvars"
+# and refresh the TF plan
+terraform plan --refresh-only

@@ -1,10 +1,8 @@
 provider "aws" {
-  #shared_credentials_file = "~/.aws/credentials"
   region     = "us-east-1"
 }
 
 resource "aws_s3_bucket" "justice_league" {
-
     bucket = "hall-of-buckets1kjdhgsd"
 }
 
