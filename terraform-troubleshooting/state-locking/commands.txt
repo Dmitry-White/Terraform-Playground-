@@ -1,0 +1,5 @@
+# If your TF Apply operation fails/hangs
+# i.e. TF Apply waiting for your consent to create resources
+# TF state will be locked and any other TF Apply operations will error
+# To override this, pass "--lock=false" to TF Apply
+terraform apply --lock=false
