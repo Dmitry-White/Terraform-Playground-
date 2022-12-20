@@ -1,8 +1,10 @@
 variable "region" {
+  type        = string
   description = "The AWS region your resources will be deployed"
 }
 
 variable "name" {
+  type        = string
   description = "The operator name running this configuration"
 }
 

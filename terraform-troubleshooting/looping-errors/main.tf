@@ -7,7 +7,7 @@ resource "aws_instance" "web_app" {
   subnet_id              = local.network.subnet_id
   vpc_security_group_ids = [each.id]
 
-  user_data = file("user-data.sh")
+  user_data = file("./scripts/user-data.sh")
 
   tags = {
     Name = "${var.name}-justice"
