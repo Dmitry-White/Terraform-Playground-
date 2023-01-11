@@ -1,0 +1,7 @@
+# Setup a separate TF Cloud Workspace
+# to track changes to this TF files
+
+# Create a separate AWS IAM user
+# with programmatic access
+# to use its credentials in TF Cloud Workspace
+# as environment variables
