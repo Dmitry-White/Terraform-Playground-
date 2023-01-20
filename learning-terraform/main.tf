@@ -1,17 +1,25 @@
 module "web_vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "VPC for web-server"
-  cidr = "10.0.0.0/16"
+  name = "web-vpc-${var.environment.name}"
+  cidr = "${var.environment.network_prefix}.0.0/16"
 
-  azs            = ["us-west-2a", "us-west-2b", "us-west-2c"]
-  public_subnets = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+  azs = [
+    "${var.region}a",
+    "${var.region}b",
+    "${var.region}c"
+  ]
+  public_subnets = [
+    "${var.environment.network_prefix}.101.0/24",
+    "${var.environment.network_prefix}.102.0/24",
+    "${var.environment.network_prefix}.103.0/24"
+  ]
 
   enable_nat_gateway = true
 
   tags = {
     Terraform   = "true"
-    Environment = "dev"
+    Environment = var.environment.name
     Scope       = "Lab"
   }
 }
@@ -19,7 +27,7 @@ module "web_vpc" {
 module "web_sg" {
   source = "terraform-aws-modules/security-group/aws//modules/http-80"
 
-  name        = "web_new"
+  name        = "web-sg-${var.environment.name}"
   description = "Security group for web-server with HTTP ports open within VPC"
   vpc_id      = module.web_vpc.public_subnets[0]
 
@@ -31,7 +39,7 @@ module "web_sg" {
 
   tags = {
     Terraform   = "true"
-    Environment = "dev"
+    Environment = var.environment.name
     Scope       = "Lab"
   }
 }
@@ -39,7 +47,7 @@ module "web_alb" {
   source  = "terraform-aws-modules/alb/aws"
   version = "~> 8.0"
 
-  name = "web-server-alb"
+  name = "web-alb-${var.environment.name}"
 
   load_balancer_type = "application"
 
@@ -49,7 +57,7 @@ module "web_alb" {
 
   target_groups = [
     {
-      name_prefix      = "web-"
+      name_prefix      = "${var.environment.name}-"
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
@@ -66,18 +74,18 @@ module "web_alb" {
 
   tags = {
     Terraform   = "true"
-    Environment = "dev"
+    Environment = var.environment.name
     Scope       = "Lab"
   }
 }
 
-module "web_autoscaling" {
+module "web_asg" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "6.7.0"
 
-  name     = "web"
-  min_size = 1
-  max_size = 2
+  name     = "web-asg-${var.environment.name}"
+  min_size = var.asg_size.min
+  max_size = var.asg_size.max
 
   image_id      = data.aws_ami.app_ami.id
   instance_type = var.instance_type
