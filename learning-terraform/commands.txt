@@ -1,7 +1,14 @@
-# Setup a separate TF Cloud Workspace
-# to track changes to this TF files
+# This project uses Terraform Cloud.
+# Each TF Cloud Workspace maps to
+# one project environment.
 
-# Create a separate AWS IAM user
+# Setup a separate TF Cloud Workspace
+# per environment
+# to track changes to related TF files
+# with mapping to a environment folder
+# by adding TF Working Directory
+
+# Create 1 or N separate AWS IAM users
 # with programmatic access
-# to use its credentials in TF Cloud Workspace
-# as environment variables
+# to use AWS_ACCESS_KEY and AWS_SECRET_ACCESS_KEY_ID credentials
+# in TF Cloud Workspaces as environment variables.
