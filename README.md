@@ -7,3 +7,7 @@
 3. [Hands-On Troubleshooting with Terraform](https://learn.acloud.guru/course/hands-on-troubleshooting-with-terraform)
 
 4. [Learning Terraform](https://www.linkedin.com/learning/learning-terraform-15575129)
+
+5. [Advanced Terraform 2020](https://www.linkedin.com/learning/advanced-terraform-2020)
+
+   [Advanced Terraform 2022](https://www.linkedin.com/learning/advanced-terraform-18720794)
