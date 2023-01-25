@@ -1,0 +1,10 @@
+# Inspect local profile
+aws sts get-caller-identity --profile <AWS_PROFILE>
+
+# Generate SSH key via AWS EC2
+aws ec2 create-key-pair \
+    --key-name <SSH_KEY> \
+    --query 'KeyMaterial' \
+    --output text \
+    --profile <AWS_PROFILE> \
+    > <SSH_KEY>.pem
