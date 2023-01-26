@@ -8,3 +8,15 @@ aws ec2 create-key-pair \
     --output text \
     --profile <AWS_PROFILE> \
     > <SSH_KEY>.pem
+
+# Set correct Linux permissions for the SSH key file
+chmod 400 <SSH_KEY>.pem
+
+# After initialization and planning,
+# use TF Graph to output dependency graph
+# that could be viewed via GraphViz tools,
+# for example:
+# http://webgraphviz.com
+# https://edotor.net
+# https://dreampuf.github.io/GraphvizOnline/
+terraform graph
