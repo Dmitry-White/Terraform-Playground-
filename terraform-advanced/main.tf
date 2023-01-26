@@ -5,10 +5,6 @@ variable "aws_access_key" {}
 
 variable "aws_secret_key" {}
 
-variable "ssh_key_name" {}
-
-variable "private_key_path" {}
-
 variable "region" {
   default = "us-east-2"
 }
@@ -19,6 +15,53 @@ variable "vpc_cidr" {
 
 variable "subnet1_cidr" {
   default = "172.16.0.0/24"
+}
+
+variable "environment_list" {
+  type    = list(string)
+  default = ["DEV", "QA", "STAGE", "PROD"]
+}
+
+variable "environment_map" {
+  type = map(string)
+  default = {
+    "DEV"   = "DEV",
+    "QA"    = "QA",
+    "STAGE" = "STAGE",
+    "PROD"  = "PROD"
+  }
+}
+
+variable "environment_instance_type" {
+  type = map(string)
+  default = {
+    "DEV"   = "t2.micro",
+    "QA"    = "t2.micro",
+    "STAGE" = "t2.micro",
+    "PROD"  = "t2.micro"
+  }
+}
+
+variable "environment_instance_settings" {
+  type = map(object({ instance_type = string, monitoring = bool }))
+  default = {
+    "DEV" = {
+      instance_type = "t2.micro",
+      monitoring    = false
+    },
+    "QA" = {
+      instance_type = "t2.micro",
+      monitoring    = false
+    },
+    "STAGE" = {
+      instance_type = "t2.micro",
+      monitoring    = false
+    },
+    "PROD" = {
+      instance_type = "t2.micro",
+      monitoring    = true
+    }
+  }
 }
 
 # //////////////////////////////
@@ -81,13 +124,6 @@ resource "aws_security_group" "sg-nodejs-instance" {
   }
 
   ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -104,27 +140,22 @@ resource "aws_security_group" "sg-nodejs-instance" {
 
 # INSTANCE
 resource "aws_instance" "nodejs1" {
-  ami                    = data.aws_ami.aws-linux.id
-  instance_type          = "t2.micro"
+  ami           = data.aws_ami.aws-linux.id
+  instance_type = var.environment_instance_type["PROD"]
+  //instance_type = var.environment_instance_settings["PROD"].instance_type
   subnet_id              = aws_subnet.subnet1.id
   vpc_security_group_ids = [aws_security_group.sg-nodejs-instance.id]
-  key_name               = var.ssh_key_name
 
-  connection {
-    type        = "ssh"
-    host        = self.public_ip
-    user        = "ec2-user"
-    private_key = file(var.private_key_path)
-  }
+  monitoring = var.environment_instance_settings["PROD"].monitoring
+
+  tags = { Environment = var.environment_list[0] }
+
 }
-
 
 # //////////////////////////////
 # DATA
 # //////////////////////////////
-data "aws_availability_zones" "available" {
-  state = "available"
-}
+data "aws_availability_zones" "available" {}
 
 data "aws_ami" "aws-linux" {
   most_recent = true
@@ -151,4 +182,8 @@ data "aws_ami" "aws-linux" {
 # //////////////////////////////
 output "instance-dns" {
   value = aws_instance.nodejs1.public_dns
+}
+
+output "private-dns" {
+  value = aws_instance.nodejs1.private_dns
 }
