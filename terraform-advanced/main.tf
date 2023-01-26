@@ -5,6 +5,14 @@ variable "aws_access_key" {}
 
 variable "aws_secret_key" {}
 
+variable "ssh_key_name" {}
+
+variable "private_key_path" {}
+
+variable "deploy_environment" {
+  default = "DEV"
+}
+
 variable "region" {
   default = "us-east-2"
 }
@@ -124,6 +132,13 @@ resource "aws_security_group" "sg-nodejs-instance" {
   }
 
   ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -141,14 +156,22 @@ resource "aws_security_group" "sg-nodejs-instance" {
 # INSTANCE
 resource "aws_instance" "nodejs1" {
   ami           = data.aws_ami.aws-linux.id
-  instance_type = var.environment_instance_type["PROD"]
+  instance_type = var.environment_instance_type[var.deploy_environment]
   //instance_type = var.environment_instance_settings["PROD"].instance_type
   subnet_id              = aws_subnet.subnet1.id
   vpc_security_group_ids = [aws_security_group.sg-nodejs-instance.id]
+  key_name               = var.ssh_key_name
 
-  monitoring = var.environment_instance_settings["PROD"].monitoring
+  connection {
+    type        = "ssh"
+    host        = self.public_ip
+    user        = "ec2-user"
+    private_key = file(var.private_key_path)
+  }
 
-  tags = { Environment = var.environment_list[0] }
+  monitoring = var.environment_instance_settings[var.deploy_environment].monitoring
+
+  tags = { Environment = var.environment_map[var.deploy_environment] }
 
 }
 
