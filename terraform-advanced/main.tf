@@ -18,11 +18,17 @@ variable "region" {
 }
 
 variable "vpc_cidr" {
-  default = "172.16.0.0/16"
+  default = "10.0.0.0/16"
 }
 
-variable "subnet1_cidr" {
-  default = "172.16.0.0/24"
+variable "private_subnets" {
+  type    = list(string)
+  default = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+}
+
+variable "public_subnets" {
+  type    = list(string)
+  default = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 }
 
 variable "environment_list" {
@@ -82,47 +88,30 @@ provider "aws" {
 }
 
 # //////////////////////////////
+# MODULES
+# //////////////////////////////
+module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+  name   = "frontend-vpc"
+  cidr   = var.vpc_cidr
+
+  azs             = ["us-east-2a", "us-east-2b", "us-east-2c"]
+  private_subnets = var.private_subnets
+  public_subnets  = var.public_subnets
+
+  enable_nat_gateway = true
+  single_nat_gateway = true
+  # one_nat_gateway_per_az = true
+}
+
+# //////////////////////////////
 # RESOURCES
 # //////////////////////////////
-
-# VPC
-resource "aws_vpc" "vpc1" {
-  cidr_block           = var.vpc_cidr
-  enable_dns_hostnames = "true"
-}
-
-# SUBNET
-resource "aws_subnet" "subnet1" {
-  cidr_block              = var.subnet1_cidr
-  vpc_id                  = aws_vpc.vpc1.id
-  map_public_ip_on_launch = "true"
-  availability_zone       = data.aws_availability_zones.available.names[1]
-}
-
-# INTERNET_GATEWAY
-resource "aws_internet_gateway" "gateway1" {
-  vpc_id = aws_vpc.vpc1.id
-}
-
-# ROUTE_TABLE
-resource "aws_route_table" "route_table1" {
-  vpc_id = aws_vpc.vpc1.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.gateway1.id
-  }
-}
-
-resource "aws_route_table_association" "route-subnet1" {
-  subnet_id      = aws_subnet.subnet1.id
-  route_table_id = aws_route_table.route_table1.id
-}
 
 # SECURITY_GROUP
 resource "aws_security_group" "sg-nodejs-instance" {
   name   = "nodejs_sg"
-  vpc_id = aws_vpc.vpc1.id
+  vpc_id = module.vpc.vpc_id
 
   ingress {
     from_port   = 80
@@ -158,7 +147,7 @@ resource "aws_instance" "nodejs1" {
   ami           = data.aws_ami.aws-linux.id
   instance_type = var.environment_instance_type[var.deploy_environment]
   //instance_type = var.environment_instance_settings["PROD"].instance_type
-  subnet_id              = aws_subnet.subnet1.id
+  subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.sg-nodejs-instance.id]
   key_name               = var.ssh_key_name
 
@@ -171,7 +160,10 @@ resource "aws_instance" "nodejs1" {
 
   monitoring = var.environment_instance_settings[var.deploy_environment].monitoring
 
-  tags = { Environment = var.environment_map[var.deploy_environment] }
+  tags = {
+    Environment = var.environment_list[0]
+    Deployment  = var.environment_map[var.deploy_environment]
+  }
 
 }
 
