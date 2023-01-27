@@ -20,3 +20,15 @@ chmod 400 <SSH_KEY>.pem
 # https://edotor.net
 # https://dreampuf.github.io/GraphvizOnline/
 terraform graph
+
+# After applying the TF configuration
+# you can use `terraform console` to
+# no only evaluate expressions/functions
+# but also read from the current TF State
+# or data sources.
+# First enter the REPL:
+terraform console
+# and then use resource/data identifiers
+<TYPE>.<NAME>
+<TYPE>.<NAME>.<OUTPUT>
+data.<TYPE>.<NAME>
