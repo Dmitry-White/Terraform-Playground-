@@ -19,7 +19,7 @@ chmod 400 <SSH_KEY>.pem
 # http://webgraphviz.com
 # https://edotor.net
 # https://dreampuf.github.io/GraphvizOnline/
-terraform graph
+terraform graph > graph.txt
 
 # After applying the TF configuration
 # you can use `terraform console` to
