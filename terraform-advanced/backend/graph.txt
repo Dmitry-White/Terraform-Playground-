@@ -1,0 +1,32 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_dynamodb_table.tf_db_statelock (expand)" [label = "aws_dynamodb_table.tf_db_statelock", shape = "box"]
+		"[root] aws_iam_user_policy.terraform_user_dbtable (expand)" [label = "aws_iam_user_policy.terraform_user_dbtable", shape = "box"]
+		"[root] aws_s3_bucket.red30-tfremotestate (expand)" [label = "aws_s3_bucket.red30-tfremotestate", shape = "box"]
+		"[root] aws_s3_bucket_public_access_block.red30-tfremotestate (expand)" [label = "aws_s3_bucket_public_access_block.red30-tfremotestate", shape = "box"]
+		"[root] data.aws_iam_policy_document.dynamodb_full (expand)" [label = "data.aws_iam_policy_document.dynamodb_full", shape = "box"]
+		"[root] data.aws_iam_policy_document.s3_full (expand)" [label = "data.aws_iam_policy_document.s3_full", shape = "box"]
+		"[root] data.aws_iam_user.terraform (expand)" [label = "data.aws_iam_user.terraform", shape = "box"]
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" [label = "provider[\"registry.terraform.io/hashicorp/aws\"]", shape = "diamond"]
+		"[root] var.aws_access_key" [label = "var.aws_access_key", shape = "note"]
+		"[root] var.aws_secret_key" [label = "var.aws_secret_key", shape = "note"]
+		"[root] var.bucket_name" [label = "var.bucket_name", shape = "note"]
+		"[root] aws_dynamodb_table.tf_db_statelock (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_iam_user_policy.terraform_user_dbtable (expand)" -> "[root] data.aws_iam_policy_document.dynamodb_full (expand)"
+		"[root] aws_iam_user_policy.terraform_user_dbtable (expand)" -> "[root] data.aws_iam_user.terraform (expand)"
+		"[root] aws_s3_bucket.red30-tfremotestate (expand)" -> "[root] data.aws_iam_policy_document.s3_full (expand)"
+		"[root] aws_s3_bucket_public_access_block.red30-tfremotestate (expand)" -> "[root] aws_s3_bucket.red30-tfremotestate (expand)"
+		"[root] data.aws_iam_policy_document.dynamodb_full (expand)" -> "[root] aws_dynamodb_table.tf_db_statelock (expand)"
+		"[root] data.aws_iam_policy_document.s3_full (expand)" -> "[root] data.aws_iam_user.terraform (expand)"
+		"[root] data.aws_iam_policy_document.s3_full (expand)" -> "[root] var.bucket_name"
+		"[root] data.aws_iam_user.terraform (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_iam_user_policy.terraform_user_dbtable (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_s3_bucket_public_access_block.red30-tfremotestate (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" -> "[root] var.aws_access_key"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" -> "[root] var.aws_secret_key"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)"
+	}
+}
+
