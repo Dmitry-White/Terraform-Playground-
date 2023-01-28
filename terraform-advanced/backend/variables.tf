@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "dynamodb_full" {
       "dynamodb:*"
     ]
     resources = [
-      aws_dynamodb_table.tf_db_statelock.arn
+      aws_dynamodb_table.remotestate-lock.arn
     ]
   }
 }

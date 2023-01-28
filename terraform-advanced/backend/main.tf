@@ -1,17 +1,23 @@
-resource "aws_s3_bucket" "red30-tfremotestate" {
+resource "aws_s3_bucket" "remotestate" {
   bucket        = var.bucket_name
   force_destroy = true
-  acl           = "private"
-
-  versioning {
-    enabled = true
-  }
-
-  policy = data.aws_iam_policy_document.s3_full
+  policy        = data.aws_iam_policy_document.s3_full
 }
 
-resource "aws_s3_bucket_public_access_block" "red30-tfremotestate" {
-  bucket = aws_s3_bucket.red30-tfremotestate.id
+resource "aws_s3_bucket_acl" "remotestate-acl" {
+  bucket = aws_s3_bucket.remotestate.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "remotestate-versioning" {
+  bucket = aws_s3_bucket.remotestate.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "remotestate-policy" {
+  bucket = aws_s3_bucket.remotestate.id
 
   block_public_acls       = true
   block_public_policy     = true
@@ -19,7 +25,7 @@ resource "aws_s3_bucket_public_access_block" "red30-tfremotestate" {
   restrict_public_buckets = true
 }
 
-resource "aws_dynamodb_table" "tf_db_statelock" {
+resource "aws_dynamodb_table" "remotestate-lock" {
   name           = "red30-tfstatelock"
   read_capacity  = 20
   write_capacity = 20
@@ -31,7 +37,7 @@ resource "aws_dynamodb_table" "tf_db_statelock" {
   }
 }
 
-resource "aws_iam_user_policy" "terraform_user_dbtable" {
+resource "aws_iam_user_policy" "remotestate-lock-policy" {
   name   = "terraform"
   user   = data.aws_iam_user.terraform.user_name
   policy = data.aws_iam_policy_document.dynamodb_full
