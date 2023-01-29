@@ -10,4 +10,12 @@
 
 5. [Advanced Terraform 2020](https://www.linkedin.com/learning/advanced-terraform-2020)
 
-   [Advanced Terraform 2022](https://www.linkedin.com/learning/advanced-terraform-18720794)
+6. [Shifting Cloud Security Left](https://blog.christophetd.fr/shifting-cloud-security-left-scanning-infrastructure-as-code-for-security-issues/)
+
+   [TF Lint](https://github.com/terraform-linters/tflint)
+
+   [TF Sec](https://github.com/aquasecurity/tfsec)
+
+   [Checkov](https://github.com/bridgecrewio/checkov)
+
+   [Open Policy Agent](https://github.com/open-policy-agent/opa)
