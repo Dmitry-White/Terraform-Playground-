@@ -1,13 +1,23 @@
-config {    
-    module = true    
-    force = false    
+config {
+    # By default, TFLint inspects only the root module.
+    # It can optionally also inspect module calls.
+    # When this option is enabled, TFLint evaluates each call (i.e. module block) and
+    # emits any issues that result from the specified input variables.
+    # Issues must be associated with a variable that was passed to the module.
+    # Otherwise they are discarded. 
+    module = true
+
+    # If `true` return zero exit status even if issues found.
+    # TFLint returns the following exit statuses on exit by default:
+    # 0: No issues found
+    # 1: Errors occurred
+    # 2: No errors occurred, but issues found
+    force = false
     disabled_by_default = false
 }
 
-plugin "terraform" {
-    enabled = true
-    preset  = "recommended"
-}
+# No need to enable recommended TF settings,
+#`plugin "terraform"` is built-in
 
 plugin "aws" {
     enabled = true
