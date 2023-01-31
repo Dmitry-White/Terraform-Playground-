@@ -7,10 +7,13 @@ terraform init
 # Validation your TF syntax
 terraform validate
 
-# Add AWS credentials reference
-export AWS_PROFILE=<YOUR_PROFILE_NAME>
+# Notice the absence of errors
 
-# Exercise Terraform Workflow
-terraform plan
-terraform apply --auto-approve
-terraform destroy --auto-approve
+# Install TFLint
+curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+# Initialize TFLint and all the plugins
+tflint --init
+
+# Lint your TF code
+tflint
