@@ -1,5 +1,5 @@
 variable "region" {
-  type    = string
+  type        = string
   description = "Deployment Region"
-  default = "us-east-1"
+  default     = "us-east-1"
 }
