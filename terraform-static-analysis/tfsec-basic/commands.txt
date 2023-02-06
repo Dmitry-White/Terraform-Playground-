@@ -13,4 +13,4 @@ terraform validate
 curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
 
 # Lint your TF code
-tfsec .
+tfsec . --format json
