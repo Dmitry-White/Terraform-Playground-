@@ -18,6 +18,7 @@ config {
 
 # No need to enable recommended TF settings,
 #`plugin "terraform"` is built-in
+# https://github.com/terraform-linters/tflint-ruleset-terraform/blob/main/docs/rules/README.md
 
 plugin "aws" {
     enabled = true

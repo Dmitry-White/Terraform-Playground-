@@ -1,0 +1,16 @@
+# Format recursively all your TF code
+terraform fmt -recursive
+
+# Initialize Terraform and all the Modules
+terraform init
+
+# Validation your TF syntax
+terraform validate
+
+# Notice the absence of errors
+
+# Install Chekov
+pip3 install checkov
+
+# Lint your TF code
+checkov -d .
