@@ -9,6 +9,9 @@ terraform validate
 
 # Notice the absence of errors
 
+# TF Lint Docs
+# https://github.com/terraform-linters/tflint
+
 # Install TFLint
 curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 

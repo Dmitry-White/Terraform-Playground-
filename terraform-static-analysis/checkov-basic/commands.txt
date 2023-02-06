@@ -9,6 +9,9 @@ terraform validate
 
 # Notice the absence of errors
 
+# Checkov Docs
+# https://github.com/bridgecrewio/checkov
+
 # Install Chekov
 pip3 install checkov
 

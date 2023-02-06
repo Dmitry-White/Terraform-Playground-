@@ -9,6 +9,9 @@ terraform validate
 
 # Notice the absence of errors
 
+# TF Sec Docs
+# https://github.com/aquasecurity/tfsec
+
 # Install TFLint
 curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
 
