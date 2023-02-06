@@ -13,4 +13,4 @@ terraform validate
 pip3 install checkov
 
 # Lint your TF code
-checkov -d .
+checkov
