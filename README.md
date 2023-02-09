@@ -18,4 +18,6 @@
 
    [Checkov](https://github.com/bridgecrewio/checkov)
 
-   [Open Policy Agent](https://github.com/open-policy-agent/opa)
+7. [Terraform Docs](https://github.com/terraform-docs/terraform-docs)
+
+   [Partial Configuration](https://developer.hashicorp.com/terraform/language/settings/backends/configuration#partial-configuration)
