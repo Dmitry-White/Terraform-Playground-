@@ -8,7 +8,7 @@ mv ./terraform-docs/terraform-docs.exe /bin
 rm -rf ./terraform-docs ./terraform-docs.zip
 terraform-docs -v
 
-# Generate markdown docs your TF code
+# Generate markdown docs for your TF code
 terraform-docs.exe .
 
 # Generate tfvars files for your TF code
