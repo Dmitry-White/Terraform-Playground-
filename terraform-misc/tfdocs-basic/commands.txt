@@ -1,0 +1,15 @@
+# TF Docs Docs
+# https://github.com/terraform-docs/terraform-docs
+
+# Install TF Docs
+curl -Lo ./terraform-docs.zip https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-windows-amd64.zip
+unzip -d ./terraform-docs terraform-docs.zip
+mv ./terraform-docs/terraform-docs.exe /bin
+rm -rf ./terraform-docs ./terraform-docs.zip
+terraform-docs -v
+
+# Generate markdown docs your TF code
+terraform-docs.exe .
+
+# Generate tfvars files for your TF code
+terraform-docs.exe -c .terraform-docs-vars.yml .
