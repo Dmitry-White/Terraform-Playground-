@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "remotestate" {
   bucket        = var.bucket_name
   force_destroy = true
-  policy        = data.aws_iam_policy_document.s3_full
+  policy        = data.aws_iam_policy_document.s3_full.json
 }
 
 resource "aws_s3_bucket_acl" "remotestate-acl" {
@@ -40,5 +40,5 @@ resource "aws_dynamodb_table" "remotestate-lock" {
 resource "aws_iam_user_policy" "remotestate-lock-policy" {
   name   = "terraform"
   user   = data.aws_iam_user.terraform.user_name
-  policy = data.aws_iam_policy_document.dynamodb_full
+  policy = data.aws_iam_policy_document.dynamodb_full.json
 }
