@@ -1,12 +1,18 @@
 # //////////////////////////////
 # INPUT
 # //////////////////////////////
+variable "region" {
+  type        = string
+  description = "Deployment region"
+}
 variable "bucket_name" {
-  default = "tf-partial-config-tfstate"
+  type        = string
+  description = "Deployment S3 bucket"
 }
 
 variable "table_name" {
-  default = "tf-partial-config-tfstatelock"
+  type        = string
+  description = "Deployment State Lock table"
 }
 
 # //////////////////////////////
@@ -48,7 +54,6 @@ data "aws_iam_policy_document" "dynamodb_full" {
 # LOCAL
 # //////////////////////////////
 locals {
-  region            = "eu-central-1"
   iam_user_name     = "TerraformCloud"
   table_policy_name = "terraform-dynamodb"
 }

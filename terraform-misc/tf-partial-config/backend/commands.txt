@@ -10,7 +10,10 @@ terraform validate
 # Add AWS credentials reference
 export AWS_PROFILE=<YOUR_PROFILE_NAME>
 
+# Create TF Var file based on example:
+env.tfvars.example -> <ENV>.tfvars
+
 # Exercise Terraform Workflow
-terraform plan
-terraform apply --auto-approve
-terraform destroy --auto-approve
+terraform plan --var-file <ENV>.tfvars
+terraform apply --var-file <ENV>.tfvars --auto-approve
+terraform destroy --var-file <ENV>.tfvars --auto-approve
