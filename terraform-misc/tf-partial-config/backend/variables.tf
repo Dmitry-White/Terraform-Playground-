@@ -48,6 +48,7 @@ data "aws_iam_policy_document" "dynamodb_full" {
 # LOCAL
 # //////////////////////////////
 locals {
+  region            = "eu-central-1"
   iam_user_name     = "TerraformCloud"
-  table_policy_name = "terraform"
+  table_policy_name = "terraform-dynamodb"
 }
