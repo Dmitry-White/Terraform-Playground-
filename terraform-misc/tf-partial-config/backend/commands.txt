@@ -1,6 +1,9 @@
 # Format recursively all your TF code
 terraform fmt -recursive
 
+# Create a separate OSS Workspace for your ENV
+terraform workspace new <ENV>
+
 # Initialize Terraform and all the Modules
 terraform init
 
@@ -12,6 +15,9 @@ export AWS_PROFILE=<YOUR_PROFILE_NAME>
 
 # Create TF Var file based on example:
 env.tfvars.example -> <ENV>.tfvars
+
+# Make sure you're in the correct OSS Workspace
+terraform workspace show
 
 # Exercise Terraform Workflow
 terraform plan --var-file <ENV>.tfvars
