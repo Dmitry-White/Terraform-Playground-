@@ -1,6 +1,11 @@
 resource "aws_s3_bucket" "remotestate" {
   bucket        = var.bucket_name
   force_destroy = true
+
+  tags = {
+    Name        = var.bucket_name
+    Environment = var.environment
+  }
 }
 
 resource "aws_s3_bucket_policy" "remotestate-policy" {
@@ -38,6 +43,11 @@ resource "aws_dynamodb_table" "remotestate-lock" {
   attribute {
     name = "LockID"
     type = "S"
+  }
+
+  tags = {
+    Name        = var.table_name
+    Environment = var.environment
   }
 }
 

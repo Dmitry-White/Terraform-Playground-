@@ -1,10 +1,16 @@
 # //////////////////////////////
 # INPUT
 # //////////////////////////////
+variable "environment" {
+  type        = string
+  description = "Deployment Environment"
+}
+
 variable "region" {
   type        = string
   description = "Deployment region"
 }
+
 variable "bucket_name" {
   type        = string
   description = "Deployment S3 bucket"
