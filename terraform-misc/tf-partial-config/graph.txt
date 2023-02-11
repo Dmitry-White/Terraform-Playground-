@@ -1,0 +1,46 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_instance.webserver (expand)" [label = "aws_instance.webserver", shape = "box"]
+		"[root] module.vpc.aws_subnet.subnet (expand)" [label = "module.vpc.aws_subnet.subnet", shape = "box"]
+		"[root] module.vpc.aws_vpc.vpc (expand)" [label = "module.vpc.aws_vpc.vpc", shape = "box"]
+		"[root] module.vpc.data.aws_ssm_parameter.webserver-ami (expand)" [label = "module.vpc.data.aws_ssm_parameter.webserver-ami", shape = "box"]
+		"[root] module.vpc.provider[\"registry.terraform.io/hashicorp/aws\"]" [label = "module.vpc.provider[\"registry.terraform.io/hashicorp/aws\"]", shape = "diamond"]
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" [label = "provider[\"registry.terraform.io/hashicorp/aws\"]", shape = "diamond"]
+		"[root] var.instance_type" [label = "var.instance_type", shape = "note"]
+		"[root] var.region" [label = "var.region", shape = "note"]
+		"[root] var.subnet_range" [label = "var.subnet_range", shape = "note"]
+		"[root] var.vpc_range" [label = "var.vpc_range", shape = "note"]
+		"[root] aws_instance.webserver (expand)" -> "[root] module.vpc.output.ami_id (expand)"
+		"[root] aws_instance.webserver (expand)" -> "[root] module.vpc.output.subnet_id (expand)"
+		"[root] aws_instance.webserver (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_instance.webserver (expand)" -> "[root] var.instance_type"
+		"[root] module.vpc (close)" -> "[root] module.vpc.output.ami_id (expand)"
+		"[root] module.vpc (close)" -> "[root] module.vpc.output.subnet_id (expand)"
+		"[root] module.vpc.aws_subnet.subnet (expand)" -> "[root] module.vpc.aws_vpc.vpc (expand)"
+		"[root] module.vpc.aws_subnet.subnet (expand)" -> "[root] module.vpc.var.subnet_range (expand)"
+		"[root] module.vpc.aws_vpc.vpc (expand)" -> "[root] module.vpc.provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] module.vpc.aws_vpc.vpc (expand)" -> "[root] module.vpc.var.vpc_range (expand)"
+		"[root] module.vpc.data.aws_ssm_parameter.webserver-ami (expand)" -> "[root] module.vpc.provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] module.vpc.output.ami_id (expand)" -> "[root] module.vpc.data.aws_ssm_parameter.webserver-ami (expand)"
+		"[root] module.vpc.output.subnet_id (expand)" -> "[root] module.vpc.aws_subnet.subnet (expand)"
+		"[root] module.vpc.provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] module.vpc.aws_subnet.subnet (expand)"
+		"[root] module.vpc.provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] module.vpc.data.aws_ssm_parameter.webserver-ami (expand)"
+		"[root] module.vpc.provider[\"registry.terraform.io/hashicorp/aws\"]" -> "[root] module.vpc.var.region (expand)"
+		"[root] module.vpc.var.region (expand)" -> "[root] module.vpc (expand)"
+		"[root] module.vpc.var.region (expand)" -> "[root] var.region"
+		"[root] module.vpc.var.subnet_range (expand)" -> "[root] module.vpc (expand)"
+		"[root] module.vpc.var.subnet_range (expand)" -> "[root] var.subnet_range"
+		"[root] module.vpc.var.vpc_range (expand)" -> "[root] module.vpc (expand)"
+		"[root] module.vpc.var.vpc_range (expand)" -> "[root] var.vpc_range"
+		"[root] output.PrivateIP (expand)" -> "[root] aws_instance.webserver (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_instance.webserver (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" -> "[root] var.region"
+		"[root] root" -> "[root] module.vpc (close)"
+		"[root] root" -> "[root] module.vpc.provider[\"registry.terraform.io/hashicorp/aws\"] (close)"
+		"[root] root" -> "[root] output.PrivateIP (expand)"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)"
+	}
+}
+

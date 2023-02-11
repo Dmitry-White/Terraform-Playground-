@@ -1,0 +1,45 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_dynamodb_table.remotestate-lock (expand)" [label = "aws_dynamodb_table.remotestate-lock", shape = "box"]
+		"[root] aws_iam_user_policy.remotestate-lock-policy (expand)" [label = "aws_iam_user_policy.remotestate-lock-policy", shape = "box"]
+		"[root] aws_s3_bucket.remotestate (expand)" [label = "aws_s3_bucket.remotestate", shape = "box"]
+		"[root] aws_s3_bucket_acl.remotestate-acl (expand)" [label = "aws_s3_bucket_acl.remotestate-acl", shape = "box"]
+		"[root] aws_s3_bucket_policy.remotestate-policy (expand)" [label = "aws_s3_bucket_policy.remotestate-policy", shape = "box"]
+		"[root] aws_s3_bucket_public_access_block.remotestate-public-access (expand)" [label = "aws_s3_bucket_public_access_block.remotestate-public-access", shape = "box"]
+		"[root] aws_s3_bucket_versioning.remotestate-versioning (expand)" [label = "aws_s3_bucket_versioning.remotestate-versioning", shape = "box"]
+		"[root] data.aws_iam_policy_document.dynamodb_full (expand)" [label = "data.aws_iam_policy_document.dynamodb_full", shape = "box"]
+		"[root] data.aws_iam_policy_document.s3_full (expand)" [label = "data.aws_iam_policy_document.s3_full", shape = "box"]
+		"[root] data.aws_iam_user.terraform (expand)" [label = "data.aws_iam_user.terraform", shape = "box"]
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" [label = "provider[\"registry.terraform.io/hashicorp/aws\"]", shape = "diamond"]
+		"[root] var.bucket_name" [label = "var.bucket_name", shape = "note"]
+		"[root] var.region" [label = "var.region", shape = "note"]
+		"[root] var.table_name" [label = "var.table_name", shape = "note"]
+		"[root] aws_dynamodb_table.remotestate-lock (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_dynamodb_table.remotestate-lock (expand)" -> "[root] var.table_name"
+		"[root] aws_iam_user_policy.remotestate-lock-policy (expand)" -> "[root] data.aws_iam_policy_document.dynamodb_full (expand)"
+		"[root] aws_iam_user_policy.remotestate-lock-policy (expand)" -> "[root] data.aws_iam_user.terraform (expand)"
+		"[root] aws_iam_user_policy.remotestate-lock-policy (expand)" -> "[root] local.table_policy_name (expand)"
+		"[root] aws_s3_bucket.remotestate (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_s3_bucket.remotestate (expand)" -> "[root] var.bucket_name"
+		"[root] aws_s3_bucket_acl.remotestate-acl (expand)" -> "[root] aws_s3_bucket.remotestate (expand)"
+		"[root] aws_s3_bucket_policy.remotestate-policy (expand)" -> "[root] aws_s3_bucket.remotestate (expand)"
+		"[root] aws_s3_bucket_policy.remotestate-policy (expand)" -> "[root] data.aws_iam_policy_document.s3_full (expand)"
+		"[root] aws_s3_bucket_public_access_block.remotestate-public-access (expand)" -> "[root] aws_s3_bucket.remotestate (expand)"
+		"[root] aws_s3_bucket_versioning.remotestate-versioning (expand)" -> "[root] aws_s3_bucket.remotestate (expand)"
+		"[root] data.aws_iam_policy_document.dynamodb_full (expand)" -> "[root] aws_dynamodb_table.remotestate-lock (expand)"
+		"[root] data.aws_iam_policy_document.s3_full (expand)" -> "[root] data.aws_iam_user.terraform (expand)"
+		"[root] data.aws_iam_policy_document.s3_full (expand)" -> "[root] var.bucket_name"
+		"[root] data.aws_iam_user.terraform (expand)" -> "[root] local.iam_user_name (expand)"
+		"[root] data.aws_iam_user.terraform (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_iam_user_policy.remotestate-lock-policy (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_s3_bucket_acl.remotestate-acl (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_s3_bucket_policy.remotestate-policy (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_s3_bucket_public_access_block.remotestate-public-access (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_s3_bucket_versioning.remotestate-versioning (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" -> "[root] var.region"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)"
+	}
+}
+
