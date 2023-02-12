@@ -1,0 +1,23 @@
+# Format recursively all your TF code
+terraform fmt -recursive
+
+# Add AWS credentials reference
+export AWS_PROFILE=<YOUR_PROFILE_NAME>
+
+# Create TF Backend file based on example:
+env.s3.tfbackend.example -> <ENV>.s3.tfbackend
+
+# Note that TF Backend neeeds to be set up separately
+# and already available when developing locally
+# or running GH Actions pipelines
+
+# Initialize Terraform and all the Modules
+terraform init --backend-config <ENV>.s3.tfbackend
+
+# Validation your TF syntax
+terraform validate
+
+# Exercise Terraform Workflow
+terraform plan
+terraform apply --auto-approve
+terraform destroy --auto-approve
