@@ -17,7 +17,15 @@ terraform init --backend-config <ENV>.s3.tfbackend
 # Validation your TF syntax
 terraform validate
 
-# Exercise Terraform Workflow
+# Exercise local Terraform Workflow
 terraform plan
-terraform apply --auto-approve
-terraform destroy --auto-approve
+
+# Push to GH and create a PR.
+# Note that GH repo environment needs to contain
+# the following secrets and variables:
+# - secrets.AWS_ACCESS_KEY_ID
+# - secrets.AWS_SECRET_ACCESS_KEY
+# - secrets.AWS_REGION
+# - vars.BACKEND_BUCKET
+# - vars.BACKEND_KEY
+# - vars.BACKEND_TABLE
