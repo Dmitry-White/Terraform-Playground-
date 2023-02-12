@@ -62,4 +62,10 @@ data "aws_iam_policy_document" "dynamodb_full" {
 locals {
   iam_user_name     = "TerraformCloud"
   table_policy_name = "terraform-dynamodb"
+
+  dynamo = {
+    hash_key = "LockID"
+    RCU      = 5
+    WCU      = 5
+  }
 }

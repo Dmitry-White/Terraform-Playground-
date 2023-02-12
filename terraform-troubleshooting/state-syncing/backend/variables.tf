@@ -19,7 +19,7 @@ variable "lock_table_name" {
 locals {
   dynamo = {
     hash_key = "LockID"
-    RCU      = 20
-    WCU      = 20
+    RCU      = 5
+    WCU      = 5
   }
 }

@@ -46,3 +46,14 @@ data "aws_iam_policy_document" "dynamodb_full" {
     ]
   }
 }
+
+# //////////////////////////////
+# LOCAL
+# //////////////////////////////
+locals {
+  dynamo = {
+    hash_key = "LockID"
+    RCU      = 5
+    WCU      = 5
+  }
+}

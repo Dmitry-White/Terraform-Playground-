@@ -36,12 +36,14 @@ resource "aws_s3_bucket_versioning" "remotestate-versioning" {
 
 resource "aws_dynamodb_table" "remotestate-lock" {
   name           = var.table_name
-  read_capacity  = 20
-  write_capacity = 20
-  hash_key       = "LockID"
+  
+  read_capacity  = local.dynamo.RCU
+  write_capacity = local.dynamo.WCU
+
+  hash_key = local.dynamo.hash_key
 
   attribute {
-    name = "LockID"
+    name = local.dynamo.hash_key
     type = "S"
   }
 
