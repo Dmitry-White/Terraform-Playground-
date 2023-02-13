@@ -158,7 +158,7 @@ jobs:
         id: plan
         continue-on-error: true
         run: |
-          terraform plan -input=false
+          terraform plan -no-color -input=false
 
       - name: Update Pull Request
         uses: actions/github-script@v6
