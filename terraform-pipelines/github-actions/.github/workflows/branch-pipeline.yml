@@ -5,10 +5,15 @@ on:
     branches:
       - main
 
+env:
+  TF_IN_AUTOMATION: "True"
+
 jobs:
   format:
     name: Format Code
     runs-on: ubuntu-latest
+    outputs:
+      outcome: ${{ steps.fmt.outcome }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -17,12 +22,15 @@ jobs:
         uses: hashicorp/setup-terraform@v2
 
       - name: Terraform Format
+        id: fmt
         run: terraform fmt --check --recursive
 
   validate:
     name: Validate Code
     runs-on: ubuntu-latest
     needs: format
+    outputs:
+      outcome: ${{ steps.validate.outcome }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -46,4 +54,5 @@ jobs:
             -backend-config="dynamodb_table=${{ vars.BACKEND_TABLE }}"
 
       - name: Terraform Validate
+        id: validate
         run: terraform validate
