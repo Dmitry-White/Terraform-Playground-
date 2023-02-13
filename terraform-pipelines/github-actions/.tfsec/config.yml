@@ -1,0 +1,2 @@
+minimum_severity: LOW
+# https://aquasecurity.github.io/tfsec/v1.28.1/checks/aws/api-gateway/enable-access-logging/

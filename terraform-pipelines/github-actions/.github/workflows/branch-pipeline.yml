@@ -110,3 +110,19 @@ jobs:
         uses: bridgecrewio/checkov-action@master
         with:
           soft_fail: true
+
+  security:
+    name: Secure Code
+    runs-on: ubuntu-latest
+    needs: validate
+    outputs:
+      outcome: ${{ steps.tfsec.outcome }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run TFSec
+        uses: aquasecurity/tfsec-action@v1.0.0
+        id: tfsec
+        with:
+          soft_fail: true
