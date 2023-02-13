@@ -94,3 +94,19 @@ jobs:
       - name: Run TFLint
         id: tflint
         run: tflint -f compact --force
+
+  checkov:
+    name: Checkov Code
+    runs-on: ubuntu-latest
+    needs: validate
+    outputs:
+      outcome: ${{ steps.checkov.outcome }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Checkov
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          soft_fail: true

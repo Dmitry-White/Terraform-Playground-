@@ -1,0 +1,5 @@
+branch: master
+directory: .
+download-external-modules: true
+evaluate-variables: true
+framework: terraform # https://www.checkov.io/5.Policy%20Index/terraform.html
