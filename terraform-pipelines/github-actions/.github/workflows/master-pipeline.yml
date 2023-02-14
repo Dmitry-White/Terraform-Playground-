@@ -1,7 +1,7 @@
 name: Master Pipeline
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -179,8 +179,7 @@ jobs:
           name: plan-artifact
 
       - name: Terraform Show
-        run: |
-          terraform show ${{ github.sha }}
+        run: terraform show ${{ github.sha }}
 
       - name: Terraform Apply
         run: |
