@@ -93,7 +93,8 @@ jobs:
 
       - name: Run TFLint
         id: tflint
-        run: tflint -f compact --force
+        continue-on-error: true
+        run: tflint -f compact
 
   checkov:
     name: Checkov Code
@@ -108,8 +109,7 @@ jobs:
       - name: Run Checkov
         id: checkov
         uses: bridgecrewio/checkov-action@master
-        with:
-          soft_fail: true
+        continue-on-error: true
 
   security:
     name: Secure Code
@@ -124,13 +124,16 @@ jobs:
       - name: Run TFSec
         uses: aquasecurity/tfsec-action@v1.0.0
         id: tfsec
-        with:
-          soft_fail: true
+        continue-on-error: true
 
   plan:
     name: Plan Code
     runs-on: ubuntu-latest
-    needs: [format, validate, lint, checkov, security]
+    needs: validate
+    outputs:
+      init: ${{ steps.init.outcome }}
+      plan: ${{ steps.plan.outcome }}
+      stdout: ${{ steps.plan.outputs.stdout }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -160,23 +163,33 @@ jobs:
         run: |
           terraform plan -no-color -input=false
 
+  finalize:
+    name: Finalize Code
+    runs-on: ubuntu-latest
+    needs: [format, validate, lint, checkov, security, plan]
+    steps:
       - name: Update Pull Request
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Format 🖌️\`${{ needs.format.outputs.outcome }}\`
-            #### Terraform Validation 🤖\`${{ needs.validate.outputs.outcome }}\`
-            #### Terraform Lint 👁️\`${{ needs.lint.outputs.outcome }}\`
-            #### Terraform Checkov ✅\`${{ needs.checkov.outputs.outcome }}\`
-            #### Terraform Security 🛡️\`${{ needs.security.outputs.outcome }}\`
-            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            const col1 = "${{ needs.plan.outputs.init }}";
+            const col2 = "${{ needs.format.outputs.outcome }}";
+            const col3 = "${{ needs.validate.outputs.outcome }}";
+            const col4 = "${{ needs.lint.outputs.outcome }}";
+            const col5 = "${{ needs.checkov.outputs.outcome }}";
+            const col6 = "${{ needs.security.outputs.outcome }}";
+            const col7 = "${{ needs.plan.outputs.plan }}";
+
+            const output = `Terraform
+            | Init ⚙️ | Format 🖌️ | Validation 🤖 | Lint 👁️ | Checkov ✅ | Security 🛡️ | Plan 📖 |
+            | - | - | - | - | - | - | - |
+            | ${col1} | ${col2} | ${col3} | ${col4} | ${col5} | ${col6} | ${col7} |
 
             <details><summary>Show Plan</summary>
 
             \`\`\`\n
-            ${{ steps.plan.outputs.stdout }}
+            ${{ needs.plan.outputs.stdout }}
             \`\`\`
 
             </details>
@@ -189,3 +202,23 @@ jobs:
               repo: context.repo.repo,
               body: output
             })
+
+      - name: Result Pull Request
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const outcomes = [
+              "${{ needs.plan.outputs.init }}",
+              "${{ needs.format.outputs.outcome }}",
+              "${{ needs.validate.outputs.outcome }}",
+              "${{ needs.lint.outputs.outcome }}",
+              "${{ needs.checkov.outputs.outcome }}",
+              "${{ needs.security.outputs.outcome }}",
+              "${{ needs.plan.outputs.plan }}",
+            ]
+
+            const result = outcomes.every((outcome) => outcome === "success");
+
+            if (!result) {
+              core.setFailed("Some jobs have failed!")
+            }
