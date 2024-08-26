@@ -1,5 +1,5 @@
 resource "aws_security_group" "server_sg" {
-  name = local.sg_name
+  name = local.server.sg_name
 
   dynamic "ingress" {
     for_each = local.ingress_rules
@@ -18,5 +18,10 @@ resource "aws_security_group" "server_sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name  = local.server.sg_name
+    Scope = local.scope
   }
 }
