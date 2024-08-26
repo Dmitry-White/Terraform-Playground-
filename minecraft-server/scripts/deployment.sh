@@ -53,9 +53,6 @@ check)
 up)
     command="plan_and_apply"
     ;;
-save)
-    command="ssh_and_save"
-    ;;
 down)
     command="plan_and_destroy"
     ;;

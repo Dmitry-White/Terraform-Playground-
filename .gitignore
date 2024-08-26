@@ -1,5 +1,6 @@
 **/.terraform*
 **/terraform.tfstate*
+**/tfplan*
 **/*.tfbackend
 **/*.tfvars
 **/*.pem
