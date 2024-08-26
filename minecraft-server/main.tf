@@ -1,6 +1,11 @@
 resource "aws_key_pair" "server_key" {
-  key_name   = local.ssh_key
-  public_key = file(var.ssh_key_path)
+  key_name   = local.server.public_ssh_key
+  public_key = file(var.public_key_path)
+
+  tags = {
+    Name  = local.server.public_ssh_key
+    Scope = local.scope
+  }
 }
 
 resource "aws_instance" "server" {
@@ -9,6 +14,8 @@ resource "aws_instance" "server" {
   key_name               = aws_key_pair.server_key.key_name
   vpc_security_group_ids = [aws_security_group.server_sg.id]
 
+  iam_instance_profile = aws_iam_instance_profile.server_profile.name
+
   user_data = data.cloudinit_config.server_config.rendered
 
   metadata_options {
@@ -16,6 +23,7 @@ resource "aws_instance" "server" {
   }
 
   tags = {
-    Name = local.server_name
+    Name  = local.server.name
+    Scope = local.scope
   }
 }
